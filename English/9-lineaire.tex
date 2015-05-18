@@ -1,0 +1,162 @@
+% éèàùôê
+
+\chapter{Optimisation linéaire : les pétroliers}
+
+
+Dans ce TP, des variables non entières vont intervenir. On va donc
+utiliser la bibliothèque \emph{eplex} au lieu de \emph{ic} (voir
+l'avant propos pour une présentation succincte).
+
+\section{Les données du problème}
+\label{sec:donnees}
+
+Cinq types de pétrole léger PL1 à PL5 sont produits quotidiennement dans
+une raffinerie selon le tableau suivant :
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+                         & PL1 & PL2 & PL3 & PL4 & PL5\\ \hline
+        qté/jour (tonne) & 70  & 110 & 120 & 150 & 170\\ \hline
+        taux d'octane    & 112 & 109 & 103 & 96  & 92 \\ \hline
+    \end{tabular}
+\end{center}
+
+Ces pétroles légers peuvent être mélangés dans n'importe quelles proportions,
+le taux d'octane du mélange obtenu varie linéairement avec les taux d'octane
+des parties constituant le mélange. Ceci signifie que si on mélange 3 tonnes de
+PL1, 2 tonnes de PL2, 0 tonne de PL3, 4 tonnes de PL4 et 1 tonne de PL5 on
+obtiendra 10 tonnes de mélange au taux de 103 :
+
+\begin{displaymath}
+    \frac{3*112 + 2*109 + 4*96 + 92}{10} = 103
+\end{displaymath}
+
+Cinq mélanges différents M1 à M5 peuvent être vendus. Les caractéristiques de
+ces mélanges sont résumées dans le tableau :
+
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+                                 & M1  & M2   & M2  & M4   & M5 \\ \hline
+        taux d'octane $\geq$ à      & 111 & 107  & 102 & 98   & 95 \\ \hline
+        demande max/jour (tonne) & 25  & 1200 & 17  & 1500 & 20 \\ \hline
+    \end{tabular}
+\end{center}
+
+Le bénéfice de la vente dépend bien sûr du mélange vendu, mais aussi des
+pétroles légers intervenant dans le mélange. Ces bénéfices, par tonne, figurent
+dans le tableau suivant :
+
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+            & PL1 & PL2 & PL3 & PL4 & PL5\\ \hline
+        M1  & 104 & 97  & 92  & 85  & 72 \\ \hline
+        M2  & 98  & 95  & 88  & 82  & 70 \\ \hline
+        M3  & 95  & 91  & 87  & 80  & 68 \\ \hline
+        M4  & 90  & 89  & 81  & 77  & 68 \\ \hline
+        M5  & 88  & 88  & 80  & 75  & 68 \\ \hline
+    \end{tabular}
+\end{center}
+
+\section{L'objectif à atteindre}
+\label{sec:objectif}
+
+Le problème consiste à déterminer quelles quantités de mélanges (M1 à M5)
+produire à partir de quels pétroles légers (PL1 à PL5) pour maximiser le profit
+tout en satisfaisant les contraintes du problème. 
+
+\section{Vers la solution en \emph{eplex}}
+\label{sec:vers-la-solution}
+
+La démarche :
+\begin{enumerate}
+\item modélisation
+\item codage
+\item test
+\item la solution !
+\end{enumerate}
+
+
+\begin{question} \label{TP8_Qdeb}
+Identifier les variables du problème (elles sont 25). Exprimer les contraintes
+et noter leur linéarité.
+\end{question}
+
+Pour gagner en généralité (le nombre de PL et de M peut changer) on organise
+les données en vecteur (liste) ou en matrice (liste de
+listes).
+
+D'où les prédicats de service que l'on retrouve dans beaucoup de programmes
+linéaires :
+
+\begin{itemize}
+
+\item \code{matrice(M,NL,NC)} contraint la variable \texttt{M} à représenter
+      une liste de $NL$ éléments, chaque élément étant une liste de $NC$
+      nombres positifs (représentation ligne par ligne) ;
+
+\item \code{colonne(I,M,C)}, où $C$ est le vecteur des valeurs situées en
+      colonne $I$ de la matrice $M$ ;
+
+\item \code{ps(V1,V2,V)}, où $V$ est le produit scalaire des vecteurs $V1$ et
+      $V2$ ;
+
+\item \code{sigma(V,S)}, où $S$ est la somme des valeurs du vecteur $V$.
+
+\end{itemize}
+ 
+\begin{question}
+Coder les contraintes au moyen des prédicats de service ci-dessus.
+\end{question}
+
+\begin{question}
+Coder le problème par conjonction des contraintes.
+\end{question}
+
+\begin{question}
+Testerle programme. NOtez qu'ECLiPSe rend le système de contraintes qu'il a accumulé
+au fur et à mesure de la résolution : aucune variable figée\ldots{} très difficile
+à lire.
+\end{question}
+
+\begin{question} \label{TP8_Qfin}
+Maximisez le profit ! (voir \code{maximize/1} de \emph{eplex}). Il est exprimé
+par une forme linéaire. 
+
+Trouvez-vous cette solution ? 
+    $\mathrm{profit} = \frac{53841748}{1071}$ avec :
+    \begin{displaymath}
+        \begin{array}{ccccc}
+            \frac{200}{9} & 0 & \frac{25}{9} & 0 & 0\\
+            \frac{430}{9} & \frac{113}{9} & 66 & 0 & 0\\
+            0 & 0 & \frac{102}{7} & \frac{17}{7} & 0\\
+            0 & \frac{14369}{153} & \frac{2309}{63} & \frac{1033}{7} & \frac{2610}{17}\\
+            0 & \frac{60}{17} & 0 & 0 & \frac{280}{17}\\
+        \end{array}
+    \end{displaymath}
+
+\end{question}
+
+\section{Compte-rendu}
+
+\subsection{Questions de compréhension}
+
+\begin{enumerate}
+
+\item Quel a été l'intérêt de poser les contraintes en utilisant des opérations
+      vectoriel au lieu de poser directement les contraintes en terme de
+      contraintes sur les données de base ?
+
+\end{enumerate}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item Les réponses aux questions de compréhension.
+\item Le code ECLiPSe. Donnez les requêtes \eclipse{} ainsi que les
+  réponses du système. De plus, insérez explicitement les réponses aux
+  questions \ref{TP7_Qdeb} à \ref{TP7_Qfin} aux endroits pertinents.
+\end{enumerate}
+
+

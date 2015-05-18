@@ -1,0 +1,405 @@
+\addcontentsline{toc}{chapter}{Introduction à ECLiPSe \prolog}
+\chapter*{Introduction à ECLiPSe \prolog}
+
+Tous les TP, sauf celui du chapitre~\ref{chapitre:choco}, seront faits
+en ECLiPSe\footnote{ECLiPSe est téléchargeable gratuitement depuis le
+  site du projet : \url{http://eclipseclp.org}}. Un prérequis est donc
+d'être à l'aise avec \prolog, notamment avec les algorithmes
+d'\textbf{unification} et de \textbf{backtracking} (cf chapitre 2 du
+cours).  Vous pourrez utiliser deux extensions de \prolog: les
+tableaux et les itérateurs (présentés dans la suite, ainsi que dans
+l'annexe du cours). \prolog{} permet de résoudre des contraintes
+portant sur des arbres (= des termes \prolog) mais c'est insuffisant
+dès lors que les problèmes à résoudre sont numériques ou que les
+contraintes entre variables sont complexes. Dans ce cas nous
+utiliserons deux librairies d'ECLiPSe :
+\begin{itemize}
+\item \emph{ic} pour résoudre des problèmes numériques où les
+  variables sont des entiers bornés.
+\item \emph{ic\_symbolic} pour résoudre des problèmes où les variables
+  sont de type énuméré, c'est à dire que leur valeur appartient à un
+  ensemble de valeurs symboliques, par exemple $\left\lbrace thé,
+    café, eau, lait, jus\right\rbrace$ (cf. TP~\ref{tp2}).\\
+\end{itemize} 
+
+Sur les machines de l'INSA, ECLiPSe se lance à l'aide de la commande
+\texttt{eclipsep}. Voici un exemple de début de session :
+
+\begin{verbatim}
+$ eclipsep
+ECLiPSe Constraint Logic Programming System [kernel]
+...
+Version 6.0 #162 (i386_linux), Mon Sep 20 06:09 2010
+[eclipse 1]:
+\end{verbatim}
+
+Les fichiers ECLiPSe portent l'extension \texttt{ecl} (ou  \texttt{pl}).
+Un fichier \texttt{tp1.ecl} se charge dans l'environnement avec \og
+\texttt{[tp1].} {\fg} (commande standard des environnements
+\prolog). Attention à ne pas mettre de majuscule en début de nom de
+fichier car dans ce cas \prolog{} croirait que c'est le nom d'une
+variable.
+
+\section{Les tableaux}
+En ECLiPSe, la structure de données \textit{tableau} existe. Vous
+pouvez l'utiliser à la place de listes lorsque vous avez besoin de
+faire des accès directs aux éléments d'une liste ou pour définir des
+structures de données à plusieurs dimensions (ex : matrices $N \times
+M$).
+
+Un tableau est défini avec le foncteur \verb|[]/1|. De plus, le
+prédicat \verb|dim/2| permet de lier un tableau à sa dimension. Ex:
+\begin{verbatim}
+[Eclipse 1]:  Tab_1 = [](1,2,3),
+              dim(Tab_1,Dim). 
+
+Tab_1 = [](1, 2, 3)
+Dim = [3]
+
+[Eclipse 2]:  Tab_2 = []([](1,2,3),[](4,5,6)),
+              dim(Tab_2,Dim). 
+
+Tab_2 = []([](1,2,3),[](4,5,6))
+Dim = [2,3]
+
+[Eclipse 3]: dim(Tab,[3,3]).
+
+Tab = []([](_183, _184, _185), [](_179, _180, _181), [](_175, _176, _177))
+\end{verbatim}
+N.B : dans le dernier exemple, le fait d'utiliser une variable non instanciée comme premier paramètre de \verb|dim| entraîne la création d'un tableau de dimension $3 \times 3$ ne contenant que des variables.
+
+
+L'accès aux éléments d'un tableau se fait via le prédicat
+\verb|is/2|. {\bf Vous ne pouvez pas utiliser l'unification directement.} Ex:
+\begin{verbatim}
+[Eclipse 4]: Tab_1 = [](1, 2, 3),
+             Var = Tab_1[2].
+
+Var = [](1, 2, 3)[2]
+
+[Eclipse 5]: Tab_1 = [](1, 2, 3),
+             Var is Tab_1[2].
+
+Var = 2
+
+[Eclipse 6]: Tab_2 = []([](1, 2, 3),[](4, 5, 6)), 
+             Var is Tab_2[1,3].
+
+Var = 3.
+\end{verbatim}
+Néanmoins, vous pouvez utiliser T[i] dans des expressions de \emph{ic}:
+\begin{verbatim}
+[Eclipse 7]: Tab_1 = [](1, 2, 3),
+             Tab_1[2] + Tab_1[3] #= Var
+
+Var = 5.
+\end{verbatim}
+
+
+\section{Les itérateurs}
+ECLiPSe permet l'utilisation d'itérateurs pour introduire du contrôle
+dans \prolog. Ces itérateurs ne sont que du sucre syntaxique qui est
+transformé en \prolog{} pur à la compilation (cf chapitre du cours
+portant sur la préparation des TPs). Il faut garder cela en tête, par
+exemple les erreurs de compilation font référence aux lignes du
+programme transformé et non pas du programme initial. D'autre part,
+\eclipse{} trace le programme transformé.
+
+La forme générale est
+\begin{verbatim}
+(Itérateur1, ..., ItérateurN do Actions)
+\end{verbatim}
+A chaque itération (ou chaque ``tour de boucle''), les itérateurs de 1
+à n évoluent d'un pas et à chaque pas les prédicats de \verb|Actions|
+sont appelés. Attention, cela ne correspond pas à des itérations
+imbriquées. Par contre, vous pouvez faire des imbrications en
+utilisant des itérateurs dans \verb|Actions|.
+
+Il existe trois itérateurs principaux.
+
+%\begin{iter} Pour tout élément de : \verb|foreach(Elem,List)|
+\subsection{Pour tout élément de : {\tt foreach(Elem,List)}}
+% \\
+  A l'itération $i$, la variable logique $Elem$ est unifiée au i\up{ème}
+  élément de la liste $List$. \textbf{Attention, la variable $Elem$ est locale à l'itérateur}. Ex: 
+\begin{verbatim}
+:- ( foreach(Elem,[1, 2, 3]) 
+   do 
+     write(Elem)
+   ).
+
+123
+
+:- ( foreach(Elem, [1, 2, 3]), 
+     foreach(Elem2, List) 
+   do 
+     Elem2 is Elem + 5
+   ). 
+
+List = [6, 7, 8]
+\end{verbatim}
+
+%\end{iter}
+ 
+%\begin{iter} Pour tout entier entre : \verb|for(Indice,Min,Max)| \\
+\subsection{Pour tout entier entre : {\tt for(Indice,Min,Max)}}
+  \verb!for! est une spécialisation de \verb!foreach! pour les variables
+  entières. Elle fait varier la variable $Indice$ de $Min$ à $Max$ en passant par
+  tous les entiers. Ex: 
+\begin{verbatim}
+:- ( for(Indice, 1, 3) 
+   do 
+      write(Indice)
+   ).
+
+123
+\end{verbatim}
+%\end{iter}
+
+ 
+%\begin{iter} Accumulateur : \verb|fromto(Debut,In,Out,Fin)| \\
+\subsection{Accumulateur : {\tt fromto(Debut,In,Out,Fin)}}
+  fromto est un accumulateur dont la
+  valeur initiale est \verb|Debut|, la valeur courante d'entrée est
+  \verb|In|, la valeur courante de sortie est \verb|Out| et la valeur
+  finale est \verb|Fin|. Le calcul permettant de passer de Out à In
+  doit être explicité dans les prédicats \verb|Actions| associés au
+  fromto. Au premier pas d'itération, \verb|In| vaut \verb|Debut|, au
+  pas $i$ $\verb|In|_i$ vaut $\verb|Out|_{i - 1}$, au dernier
+  pas \verb|Out| vaut \verb|Fin|. Ex: 
+\begin{verbatim}
+:- ( fromto(1, In, Out, 3) 
+   do 
+      Out is In + 1, 
+      write(In)
+   ).
+
+123  
+\end{verbatim}
+
+fromto est souvent utilisé avec un autre itérateur. L'exemple suivant illustre la puissance du fromto :
+\begin{verbatim}
+inverse(List,LInverse):- 
+    ( foreach(Elem, List), 
+      fromto([], In, Out, LInverse) 
+    do 
+       Out = [Elem | In]
+    ).
+
+:- inverse([1, 2, 3], List).
+
+List = [3, 2, 1]
+\end{verbatim}
+%\end{iter}
+
+\subsection*{Portée des itérateurs}
+Comme détaillé dans l'annexe du cours, les variables utilisées dans la
+partie $Actions$ d'un itérateur et ne figurant pas dans les paramètres
+de l'itérateur sont considérées comme locales à cet itérateur.  Par
+exemple, le prédicat suivant ne fonctionnera pas~:
+\begin{verbatim}
+afficheKO(Tab):-
+    dim(Tab, [Dim]),
+    ( for(Indice, 1, Dim),
+    do 
+      Var is Tab[Indice],
+      write(Var)
+    ).
+\end{verbatim}
+En effet, l'appel \verb|Var is Tab[Indice]| échouera car \verb|Tab| est considérée comme étant une variable locale et n'est donc pas instancée. 
+
+Afin de faire passer une variable du programme dans la portée d'un itérateur, il faut déclarer explicitement que cette variable est utilisée par l'itérateur via le prédicat
+ \verb|param| (d'arité variable).\\
+Ex: 
+\begin{verbatim}
+afficheOK(Tab) :-
+    dim(Tab, [Dim]),    
+    ( for(Indice, 1, Dim), 
+      param(Tab) 
+    do 
+       Var is Tab[Indice], 
+       write(Var)
+    ). 
+\end{verbatim}
+
+\section{Les domaines finis}
+
+Comme détaillé en cours, un problème de contraintes à domaines finis
+est constitué d'un ensemble de contraintes portant sur des variables
+et d'un ensemble de domaines finis dans lesquels les variables peuvent
+prendre leur valeur. Résoudre un tel problème vise à trouver une
+instanciation des variables dans leur domaine respectif telle que
+toutes les contraintes soient satisfaites. La résolution d'un problème
+de contraintes à domaines finis est basée sur deux principes :
+
+\begin{itemize}
+
+\item la \textbf{propagation} de contraintes. Chaque contrainte est analysée
+      séparément afin d'éliminer des valeurs de domaines qui ne peuvent pas
+      faire partie d'une solution. Par exemple, si l'on considère la contrainte
+      $X<Y$ avec les domaines $D_x = D_y = 0 .. 10$, l'algorithme de
+      propagation d'ECLiPSe va réduire les domaines à $D_x = 0 .. 9$ et $D_y =
+      1 .. 10$. Si l'on ajoute la contrainte $X>Y$, l'algorithme de propagation
+      va déduire $D_x = 2 .. 9$ et $D_y = 1 .. 8$, puis réexaminer la première
+      contrainte. Ainsi de suite jusqu'à ce que les domaines soient $D_x = D_y
+      = \emptyset$.
+
+\item l'\textbf{énumération}. Lorsque la propagation ne suffit pas à trouver
+      une solution ou à montrer qu'il n'y en a pas, l'énumération est utilisée.
+      Elle consiste à fixer arbitrairement une valeur à une variable. 
+
+\end{itemize}
+
+Notez bien que ces deux algorithmes sont appelés de nombreuses fois pendant la
+résolution de contraintes. Une phase de propagation est effectuée, puis une
+énumération, puis une phase de propagation prenant en compte l'énumération
+effectuée, etc.\\
+
+La requête de chargement de la bibliothèque des domaines finis
+numériques est :
+\begin{verbatim}
+:- lib(ic).
+\end{verbatim}
+
+Les principales contraintes de \emph{ic} sont des contraintes numériques :
+des équations (\code{\#=}), des inéquations (\code{\#<} , \code{\#>},
+\code{\#=<}, \code{\#>=}), des diséquations (\code{\#$\backslash$=}) dont les
+membres sont des termes comportant des variables à domaine fini.
+
+Le domaine d'une variable entière est défini grâce au prédicat \code{\#\dom/2} :
+
+\begin{itemize}
+\item \code{V \#\dom{} D} contraint la variable $V$ à appartenir au domaine $D$ ;
+\item \code{Lv \#\dom{} D} contraint chaque variable de la liste \verb|Lv|
+  à appartenir au domaine $D$.
+\end{itemize}
+
+Le domaine $D$ est spécifié soit par la liste des valeurs qu'il contient, soit
+par un intervalle $\mathit{min}..\mathit{max}$, etc. (voir documentation).\\
+
+L'algorithme de propagation est lancé dès qu'une contrainte est posée
+dans ECLiPSe. Par contre l'algorithme d'énumération doit être appelé
+\textbf{explicitement} en utilisant les prédicats \code{labeling/1},
+\code{search/6}, ou bien une version customisée de labeling (cf
+chapitre 4 du cours).
+%
+\code{labeling(Lv)} réussit pour chaque assignation des variables de
+$L_v$ à une valeur de leur domaine qui respecte les contraintes.\\
+
+Il est possible de faire de l'optimisation dans les domaines finis en utilisant
+un algorithme de \textbf{branch and bound}. Dans la bibliothèque
+\code{branch\_and\_bound} de \emph{ic}, le prédicat \code{minimize(Pred,Var)} recherche une solution de
+\verb|Pred| qui minimise la valeur de \verb|Var|.
+
+\subsection*{Les domaines symboliques}
+
+On appelle domaine symbolique un domaine constitué d'un ensemble fini
+de valeurs non numérique.  Dans ce cas, le domaine d'une variable est
+un ensemble fini de terminaux, par exemple~: \verb|Day &:: week|, avec
+\verb|week| le domaine symbolique représentant l'ensemble fini \\
+\verb|{mo, tu, we, th, fr, sa, su}|.
+
+La requête de chargement de la bibliothèque des domaines symboliques est :
+\begin{verbatim}
+:- lib(ic_symbolic).
+\end{verbatim}
+
+On retrouve alors les mêmes opérateurs que ceux décrits pour les
+domaines finis numériques à la différence que ceux-ci débutent par
+\code{\&} au lieu de \code{\#}.
+
+Pour définir un domaine \emph{couleur} de manière locale on peut
+utiliser le prédicat :
+\begin{verbatim}
+:- local domain(couleur(rouge,vert,bleu)).
+\end{verbatim}
+
+Le domaine est défini par un prédicat dont le foncteur est le nom du
+domaine et les arguments sont les atomes qui représentent les valeurs
+possibles du domaine. L'arité du prédicat correspond donc à l'arité du
+domaine (ici 3 couleurs).
+
+% Ce type de domaine est ordonné et son ordre dépend de la structure de
+% définition du domaine, les valeurs du domaine sont liées aux entiers
+% naturels tel que le premier argument soit 1, le second 2, etc. La
+% bibliothèque \emph{ic\_symbolic} utilise cet ordre de manière interne.
+
+\section{Enumération :  \code{labeling} et \code{search}}
+\label{intro:labeling}
+
+Les deux prédicats \code{labeling} et \code{search} sont utilisés pour
+pour guider l'énumération de valeurs possibles pour les variables
+lorsque la propagation ne suffit pas pour trouver une solution.
+
+Attention : comme vu en détail dans le chapitre 4 du cours, ces deux
+prédicats ne couvrent pas toutes les manières de guider
+l'énumération. Dans certains cas, ils ne sont pas suffisamment
+efficaces. Dans le TP~\ref{sec:balancoire} vous devrez proposer des
+stratégies d'énumération mieux adaptées au problème en customisant le
+prédicat \code{labeling}.
+
+
+\subsection{Labeling}
+Le prédicat \code{labeling} choisit une variable $v$ du problème et une
+valeur $a$ dans le domaine de cette variable, puis il pose la
+contrainte $v = a$. S'il n'y a pas de solutions telles que cette
+contrainte soit vérifiée, $v = a$ est enlevée du problème, $a$ est
+retirée du domaine de $v$ et l'exécution backtracke.  Voici
+l'implémentation de base de ce prédicat dans ECLiPSe :
+
+\begin{verbatim}
+labeling([]).
+labeling([Var|List]) :- 
+   indomain(Var),
+   labeling(List).
+\end{verbatim}
+
+\code{indomain(Var)} est un prédicat de $ic$ qui instancie la variable
+$Var$ en énumérant les valeurs de son domaine par ordre croissant.
+Par exemple, si on a $Var \in 0 .. 10$, alors \\
+\code{indomain(Var)} va commencer par poser $Var = 0$. Si cela aboutit
+à un échec, alors $Var = 1$ sera posée et ainsi de suite jusqu'à ce
+qu'une solution ait été trouvée ou bien que toutes les valeurs du
+domaine aient été essayées.
+
+Dans cette version standard du labeling, l'énumération se fait en
+instanciant les variables dans l'ordre dans lequel elles apparaîssent
+dans la liste des variables.
+
+
+\subsection{Search}
+
+Le prédicat \code{search} est une implémentation du labeling proposant
+différentes stratégies d'énumération très utilisées dans la communauté
+de la programmation par contraintes. Il est paramétrable selon
+différents axes.  Une lecture attentive de la documentation est
+recommandée pour bien comprendre le prédicat et ses différentes
+possibilités.
+
+
+
+\section{Quelques utilitaires}
+
+\subsection{Historique}
+La commande \verb|h.| permet d'afficher l'historique de la session ECLiPSe courante. Ex :
+\begin{verbatim}
+[Eclipse 6]: h.
+1	Tab_1 = [](1, 2, 3).
+2	Tab_1 = [](1, 2, 3), dim(Tab_1).
+3	Tab_1 = [](1, 2, 3), dim(Tab_1, Dim).
+4	lib(ic).
+5	["mesTps/bal"].
+\end{verbatim}
+
+Pour réexécuter un but de l'historique, il suffit de taper le numéro de ce but dans l'historique suivi d'un point. Ex :
+\begin{verbatim}
+ [Eclipse 6]: 4.
+lib(ic).
+
+Yes (0.00s cpu)
+\end{verbatim}
+
+\subsection{Quitter ECLiPSe}
+Pour quitter ECLiPSe, vous pouvez utiliser le prédicat \verb|halt| ou le raccourci \verb|Ctrl+D|.
+
+

@@ -1,0 +1,146 @@
+\chapter{Contraindre puis chercher}
+
+\noindent Generally the constraints programs include
+two stages, the first is to express the problem and the second
+is to find a variable assignment that satisfies
+constraints, ie a solution to the problem. We may want
+find any solution, all solutions or solution
+optimal (or `good 'according to a given criterion). In this problem we
+intéresserons the latter type of solution.
+
+%\section{Totalement immoral !}
+\section{Le problème}
+\label{sec:immoral}
+
+Consider the following problem: a production unit can produce
+various mobile phone products. The manufacture of the so $ S $
+$ N $ mobilizes workers and produces mobile phones $ P $ a day,
+for each of these phones benefit is $ E $ euros. The unit has
+22 technicians.
+
+It has the following data:
+
+\begin{center}
+    \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|}
+        \hline
+        Sorte & $S_1$ & $S_2$ & $S_3$ & $S_4$ &
+                $S_5$ & $S_6$ & $S_7$ & $S_8$ & $S_9$\\ \hline
+        Nb. Tech &5&7&2&6&9&3&7&5&3\\ \hline
+        Qté jour&140&130&60&95&70&85&100&30&45\\ \hline
+        Bénef&4&5&8&5&6&4&7&10&11\\ \hline
+    \end{tabular}
+\end{center}
+
+
+
+We want to know what you have to start manufacturing for the benefit.
+
+\newpage
+\section{Modéliser et contraindre}
+
+Before coding it is imperative model, that is to say to
+the problem equations. To this we must look for a model
+general. The problem data are in the form of three
+values of vectors: \code{Techniciens}, \code{Quantite},
+\code{Benefice}. The variables form a vector\code{Fabriquer}  which
+the values will be determined by your program. These values are
+either 1 or 0, depending on whether or not the lance production.
+
+\noindent The program must be composed as follows:
+
+\begin{enumerate}
+\item part données (faits, variables);
+\item part « prédicats de services » (produit scalaire, \dots);
+\item part constraints predicates (equations expressing the problem of properties);
+\item part resolution constraints, a predicate that:
+    \begin{itemize}
+    \item « récupère » data and variables of the problem,
+    \item asks the constraints on these variables.
+    \end{itemize}
+\end{enumerate}
+
+\begin{question} \label{TPCPC_Qdeb} 
+  Write predicates that define the three vectors
+   values and the vector of variables.
+\end{question}
+
+\begin{question}
+ Define the predicates which express from
+   defined vectors:
+\begin{itemize} 
+  \item the total number of necessary workers
+  \item the vector of total profit by kind of telephone
+  \item the total profit
+\end{itemize} 
+These equations represent predicates using vector operations.
+\end{question}
+
+\begin{question}
+ Define the predicate: \\
+  \code{pose\_contraintes(?Fabriquer, ?NbTechniciensTotal, ?Profit)} which
+   poses constraints, then call and list the solutions
+   respect these constraints (there are many!).
+\end{question}
+
+
+\section{Optimiser}
+
+\subsection{Branch and bound dans ECLiPSe}
+To make the optimization under the constraints, the algorithm \emph{branch and bound} is used. 
+\newpage
+In \eclipse{}, the predicate \code{minimize/2} from the library
+\emph{branch\_and\_bound} is an implementation of that algorithm. the
+first parameter is a goal. This object generates a search tree which performs
+the list of possible solutions. The second parameter is a variable representing the
+cost of the solution. It is this variable that should be minimized. 
+
+The predicate \code{minimize / 2} works on the following principle:
+as soon as a solution is found, it is stored and research
+continues with the additional constraint that the cost is less
+than stored. By repeating this process until no longer find
+solution, an optimal solution is obtained.
+
+NB: \code {minimize / 2} requires that the object instantiates the variable
+cost but not the rest of the variables. In this case, it may
+there are no solutions to the problem to obtain the value
+optimum found. The following example illustrates this property:
+\\\verb|[X,Y,Z,W] #:: [0..10], X #= Z+Y+2*W , X #\= Z+Y+W|
+
+\begin{question}\label{Qmin}
+  Use \code{minimize/2} to find the smallest value
+   \code{X} solution of this example. Try the labeling only
+   \code{X} and finally \code{[X, Y, Z, W]}. Explain the two responses
+   made by different \eclipse{}. What must always be in
+   the purpose?
+\end{question}
+
+\subsection{Application à notre problème}
+
+\begin{question}
+Call the predicate poses constraints and seek
+   "optimal" solution (maximizing profit) and meets the
+   constraints posed.
+\end{question}
+
+Times change. The mobile market begins to saturate. shareholders
+worry. So the company policy fits. We want to produce
+less but earn at least 1 \, 000 per day. We want to keep making
+mobile lines that ensure this goal but keeping the minimum
+workers!
+
+\begin{question} \label{TPCPC_Qfin}
+Use the previous approach to address this new problem. There
+not much to do (same data, same services predicates, \dots) !
+\end{question}
+
+\section{Compte-rendu}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item The answer to the problem.
+\item The commented code. Deliver the queries \eclipse{} and
+  the system responses.
+\item The detailed answer to the question \ref{Qmin}.
+\end{enumerate}
+

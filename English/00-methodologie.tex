@@ -1,0 +1,135 @@
+\addcontentsline{toc}{chapter}{Déroulement des travaux pratiques}
+\chapter*{Déroulement des travaux pratiques}
+
+\section*{Compte-rendus}
+Les travaux pratiques se feront par binômes et chaque TP devra faire
+l'objet d'un compte-rendu qui sera noté.  {\bf Ces compte-rendus
+  devront être rendus au plus tard lors du TP suivant, en version
+  papier et déposés sur Moodle.}
+% pour 2013 il faudra donner les indications précises.
+
+Les compte-rendus  inclueront au minimum~:
+\begin{enumerate}
+\item Le code final de votre solution. Remarque : les notes prendront
+  en compte la qualité du code produit et des commentaires.
+ \item {\bf Les tests} vous ayant permis de
+   valider votre code. Chaque test sera décrit par~:
+\begin{itemize}
+\item Les données utilisées (si ce ne sont pas celles du texte du TP)
+\item Le but executé
+\item Les premières réponses d'\eclipse
+\item Le temps d'exécution de la requête
+\item Une indication du nombre de réponses
+\end{itemize}
+
+\item Une réponse succincte mais \textbf{rédigée} à toutes les
+  questions de compréhension. N'hésitez pas à utiliser des schémas ou
+  des exemples
+  lorsque cela est pertinent.\\
+
+Les deux derniers points devront être inclus dans un grand
+commentaire. Le fichier déposé sur Moodle doit pouvoir être exécuté
+directement par le correcteur.
+\end{enumerate}
+ 
+\section*{Structure de vos programmes}
+Le code de vos TP devra respecter la structure suivante~:
+\begin{itemize}
+ \item prédicat principal chargé de résoudre le problème posé (ce prédicat sera enrichi tout au long du TP).
+ \item prédicats chargés de poser les données
+ \item prédicats de définition des variables et de leurs domaines
+ \item prédicats posant les contraintes 
+ \item prédicats utilitaires
+\end{itemize}
+
+\section*{Qualité du code et conventions de codage}
+Vous devrez porter attention à la qualité du code, et plus particulièrement~:
+\begin{itemize}
+ \item Utiliser des noms de prédicats et de variables significatifs (pas de p(X,Y), \ldots)
+ \item \textbf{Indenter le code} 
+ \item Ne lister \textbf{qu'un seul prédicat par ligne,} même, et surtout, si
+   le prédicat est court.  Ça peut sembler un gâchis de place, mais ça
+   vous fera beaucoup de temps lors de la mise au point. Ça permettra
+   aussi aux enseignants de vous aider plus facilement.
+ \item Ne pas entrelarder son code de commentaires~: \textbf{regrouper tous les
+   commentaires en entête d'un prédicat.} Un commentaire à
+   l'intérieur d'un prédicat est souvent le signe qu'il faudrait
+   découper en prédicats auxilliaire dont le nom pourrait véhiculer
+   l'essentiel de ce qu'on voulait mettre dans le commentaire.
+ \item Ne pas mettre de constantes en dur dans le programme
+ \item Faire du code modulaire (pas de prédicats fourre-tout)
+ \item Faire du code réutilisable lorsque cela est pertinent
+\end{itemize}
+
+
+\section*{Méthodologie}
+Le débogage de programmes à contraintes n'est pas évident. Aussi, il
+est très important de \textbf{tester vos programmes au fur et à
+  mesure}.  Le processus de résolution d'un problème devra donc être
+incrémental :
+\begin{enumerate}
+ \item Définition des données pour la mise au point (éventuellement
+   plus restreintes que les données du problème qu'on cherche
+   réellement à résoudre)
+ \item Définition des variables et de leur domaine
+ \item Obtention d'une solution et vérification de la cohérence de
+   cette solution avec les contraintes déjà posées
+ \item Ajout d'une contrainte 
+ \item Obtention d'une solution et vérification
+ \item Itérer sur les deux points précédents tant qu'il y a des
+   contraintes à poser
+ \item \label{une:sol} Obtention d'une solution prenant en compte toutes les
+   contraintes
+\item Itérer avec les données de l'énoncé, si les données initiales
+  avaient été restreintes.\\
+\end{enumerate}
+
+Il faudra systématiquement commencer avec des données de test les plus
+petites possibles et ne passer aux valeurs conséquentes qu'une fois
+que le point~\ref{une:sol} est atteint.
+
+\section*{Documentation}
+La documentation d'\eclipse{} est disponible en local
+\url{/usr/local/stow/eclipse6.0\_136/doc/bips}. C'est cette
+documentation qu'il faut utiliser en priorité. Pour le cas où des
+informations viendraient à manquer, vous pouvez aussi consulter la
+documentation en ligne à l'url~: \url{http://eclipseclp.org/doc/bips}.\\
+
+{\bf Ajoutez des signets lors du premier TP sur ces pages et ayez
+systématiquement le manuel de référence ouvert lors des TP (cf annexe
+du cours).}
+
+
+\section*{Mise au point}
+
+Pour finir, voici quelques points qui peuvent vous aider à trouver des
+erreurs dans vos programmes~:
+
+\begin{itemize}
+\item {\bf Faîtes systèmatiquement disparaître les warnings du
+    compilateur}. En effet, la plupart du temps les avertissements
+  remontés par le compilateur sont des symptômes d'erreurs.\\  
+
+%   De plus, il ne faut pas prendre l'habitude d'avoir de nombreux
+%   avertissements (ex : variables ``singleton'') car cela vous
+%   empêche de voir lorsque le compilateur remonte un problème grave.\\
+
+\item {\bf Méfiez vous des ``delayed goals''}. Il est tout à fait
+  normal d'avoir des buts suspendus tant que vous ne faîtes que poser
+  les contraintes.  En revanche, lorsqu'\eclipse{} dit avoir trouvé
+  une solution à ces contraintes, s'il reste des buts en attente, il
+  est probable que toutes les contraintes n'aient pas été prises en
+  compte. On ne peut donc pas faire confiance au résultat, tout
+  particulièrement s'il y a eu du ``Branch and Bound''.\\
+
+\item {\bf Utilisez le traceur}. Cela permet de voir exactement ce qui
+  se passe à l'exécution.
+
+  L'annexe du cours contient des indications concrètes pour utiliser
+  le traceur d'ECLiPSe. Cela peut s'avérer très utile pour comprendre,
+  par exemple, les erreurs d'exécution ou les itérateurs mal
+  imbriqués.  Il est crucial de tracer des exécutions où les données
+  de test ont été réduites le plus possible pour réduire la taille de
+  la trace.
+
+\end{itemize}

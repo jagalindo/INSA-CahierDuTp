@@ -1,0 +1,133 @@
+
+
+\chapter{Discovering the library for constraint programing.}
+
+%\section{Prise en main de \emph{ic}}
+%\label{sec:domaines-finis}
+
+
+
+\section{From \prolog{} to \prolog{}+ic}
+
+\subsection{Des contraintes sur les arbres}
+
+A rich and refined vehicle buyer wishes to purchase a car and a boat of the same color.
+The car he has chosen can be find in red, light green, gray or white (single color will be represented by an atom, for example `` red '' and an existing color in various shades by a term such as `` green (light) ').
+The boat model that interests may be available in green, black or white.
+
+\begin{question}
+ Write in \prolog{} pure, the sentence \\\code{choixCouleur(?CouleurBateau, ?CouleurVoiture)} which is true iff the colors chosen for the boat and the car are the same and are part of existing choices.
+\end{question}
+
+\begin{question}\label{QC1}
+Explain why \prolog{} can be considered as a constraint solver on the domain tree.
+\end{question}
+
+\subsection{\prolog{} do not manage Maths (but it's an awesome calculator)}
+To produce its flagship product, a company needs to capacitors and resistors. Electrical equipment provider can provide between 5,000 and 10,000 resistors and capacitors between 9000 and 20000.
+For the next order, the company plans to order more than resistors capacitors.
+
+\begin{question}
+ Write the sentence \code{isBetween(?Var,+Min,+Max)} which sets a value for  \code{Var} and it's true iff \code{Var} has one value in between \code{Min} and \code{Max}.
+\end{question}
+\begin{question} 
+Use the sentence \code{isBetween} and \code{>=} to define \\\code{commande(-NbResistance, -NbCondensateur)} which sets the number of resistors and capacitors in order to meet the problem statement.
+\end{question}
+\begin{question}\label{QCA1}
+  rely on \eclipse{}'s debugger to design the \prolog{} search tree when searching the solution \code{commande(-NbResistance, -NbCondensateur)}.  \\
+ (NB: we do not ask for the trace in the report,
+   only the tree.)
+\end{question}
+\begin{question}\label{QC3}
+Justify the title of the year (tracks: what will happen if we put the predicate~\code{>=} before the calls to \code{isBetween} ? Why we use and call it test-driven development?)
+\end{question}
+
+\subsection{The solver \code{ic} to the rescue}
+\begin{question}\label{QC4}
+ Change the sentence \code{isBetween} by the constraint \code{ic} \code{Var \#:: Min..Max} and \code{>=} by \code{\#>=}. See what happens in \eclipse{}. Why is this happening? 
+\end{question}
+
+\begin{question}\label{QCA2}
+Use the \code{labeling} predicate to find solutions to
+   problem (see section labeling page \pageref{intro:labeling})  and
+   draw the new search tree \prolog{}, keep on using the tracer.
+\end{question}
+
+
+
+\section{Zoologie}
+\label{sec:zoologie}
+
+Consider \code{Chats}s cats and \code{Pies} pies. These \code{Chats} Cats cats and \code{Pies} pies total \code{Pattes}
+legs and \code{Tetes} heads. The problem that concerns us therefore includes four
+variables that are "linked" with numerical constraints.
+
+These variables belong to a finite domain: a sub-set of integers
+natural. Indeed the negative head numbers or $2/3$ means anything for us!
+
+Define a sentence \code{chapie/4} where \code{chapie(-Chats,-Pies,-Pattes,-Tetes)} establishes
+constraint linking the four variables.
+
+Use this predicate to answer the following questions:
+\begin{question}
+How many pies and legs does it take to total five heads and two cats?
+\end{question}
+
+\begin{question}
+How much to cats and pies for three times as many legs as
+heads?
+\end{question}
+
+\section{Le ``OU'' en contraintes}
+\label{sec:suite-periodique}
+When programming with \code{\prolog{} + ic}, the `` or '' logic can be implemented in two ways:
+
+\begin{itemize}
+\item With a choice point \prolog{}.
+\item With the disjunction operator \verb|or| from \emph{ic}.
+\end{itemize}
+
+
+\begin{question}
+En utilisant successivement ces deux méthodes, définissez   le   prédicat  \code{vabs/2},   where
+\code{vabs(?Val,?AbsVal)} impose the constraint  : \code{AbsVal} is the absolute value of an integer \code{AbsVal}.
+Test different versions of this predicate in varying arguments.\end{question}
+
+\begin{question}\label{QC5}
+Run the query \code{X \#:: -10..10, vabs(X,Y)} with both versions of \code{vabs}. Compare and discuss the results.
+\end{question}
+
+
+Following is defined by:
+\begin{displaymath}
+    X_{i+2} = |X_{i+1}| - X_i
+\end{displaymath}
+
+\begin{question}
+
+Define the predicate \code{faitListe(?ListVar, ?Taille, +Min, +Max)} forcing ListVar to be a size of Size list whose elements are variable \code{ic} so the domain is \code{Min..Max} .
+\end{question}
+
+
+\begin{question}
+Define the prédicate \code{suite(?ListVar)} which takes a list and constraint the elements of that list is such a way that they are consecutive.
+\end{question}
+
+\begin{question} 
+Ask a query to verify that this sequence is periodic of period 9.
+\end{question}
+
+
+\section{Compte-rendu de TP}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item Source code \eclipse{} and queries \eclipse{}
+  used and the system responses.
+\item The written answers questions \ref{QC1}, \ref{QC3},
+  \ref{QC4} et \ref{QC5}, and the search tree for \ref{QCA1} et \ref{QCA2}.
+\end{enumerate}
+
+
+

@@ -1,0 +1,165 @@
+% éèàùôê
+
+
+\chapter{Sur une balançoire}
+\label{sec:balancoire}
+
+
+A family of 10 arrived at the park and wants to use a swing
+16 seats in the schematic drawing below (seats are spaced
+1 meter, except the 2 separate head offices 2 meters)
+
+\begin{center}
+    \underline{
+      \raisebox{1ex}{\underline{-8 }}
+      \raisebox{1ex}{\underline{-7 }}
+      \raisebox{1ex}{\underline{-6 }}
+      \raisebox{1ex}{\underline{-5 }}
+      \raisebox{1ex}{\underline{-4 }}
+      \raisebox{1ex}{\underline{-3 }}
+      \raisebox{1ex}{\underline{-2 }}
+      \raisebox{1ex}{\underline{-1 }}
+      ~~~ 
+      \raisebox{1ex}{\underline{ 1 }} 
+      \raisebox{1ex}{\underline{ 2 }} 
+      \raisebox{1ex}{\underline{ 3 }} 
+      \raisebox{1ex}{\underline{ 4 }}
+      \raisebox{1ex}{\underline{ 5 }} 
+      \raisebox{1ex}{\underline{ 6 }} 
+      \raisebox{1ex}{\underline{ 7 }}
+      \raisebox{1ex}{\underline{ 8 }}
+    }
+
+\hspace*{\stretch{1}}\raisebox{2ex}{$\Delta$}\hspace*{\stretch{1}}
+\end{center}
+The weights of the family members are given in the table below ~:
+
+\begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+        \hline
+        24&39 &85 &60 &165 &6  &32 &123 &7  &14 \\
+        \hline
+        ron&zoe&jim&lou&luc &dan&ted&tom&max&kim\\
+        \hline
+    \end{tabular}
+\end{center}
+
+The constraints of the problem are as follows ~:
+\begin{enumerate}
+ \item Once installed our 10 people, \textbf{the swing must be balanced} (time left = right time)
+ \item Lou and Tom, the mom and dad of the siblings of 8 children, wish
+coach their children in order to monitor
+ \item Dan and Max, the two
+Young people are on two opposite sides, just in front of their mom or dad
+ \item there are five persons on each side
+\end{enumerate}
+
+\textbf{We are seeking a solution to this problem that minimizes forces moments standards.}
+
+\newpage
+
+Rappel : chaque personne $X$ assise sur la balançoire exerce une force sur celle-ci (son poids), notée $\overrightarrow{P_X}$. Si $d_X$ est la distance entre $X$ 
+et le centre de la balançoire, alors la norme du moment exercé sur l'axe de rotation de la balançoire par $\overrightarrow{P_X}$ est égal à  $\| \overrightarrow{P_X}\| \times d_X$ 
+
+Here the data of the problem is in the form of a vector of values
+: Weight.
+
+The variables (representing places) also form a vector whose $Places$
+values will be determined by your program. These values belong to
+domain $[-8..-1] \cup [1..8]$. In $Places$ and $Poids$ rank refers implicitly
+the person. Although you have to use the vector $Places$ as such, you
+will still need to name some variables appear explicitly
+in constraints.
+
+\section{Trouver une solution au problème}
+
+
+\noindent The program will be composed as follows :
+
+\begin{enumerate}
+\item part data
+\item part « services predicates »
+\item part defining constraints
+\item predicate of calculating a solution using predicates other parts.
+\end{enumerate}
+
+Note: as in previous works, it is essential to test code as His. So you-have to start by putting in place predicates That can ask \eclipse{} to find a solution.
+When adding an additional constraint, Then you can easily check the impact of this new constraint on the solutions Given by \eclipse{}.
+
+\begin{question}
+Write the program that defines the data and sets the constraints of the problem. NB : $ic$ provides various arithmetic constraints that you can use for this lab ($abs/2$, $min/2$, \ldots). Feel free to search the documentation of \eclipse{}!
+\end{question}
+
+\begin{question} \label{TP3_Qfin}
+Ask \eclipse{} to find a solution.
+\end{question}
+
+
+\begin{question}\label{Qsym}
+What symmetry may appear in the solutions to this problem? Remove this symmetry.
+
+What is the impact of this disposal on finding solutions?
+\end{question}
+
+\section{Trouver la meilleure solution}
+
+\begin{question}
+ Use the predicate \code{minimize} from the library \code{branch\_and\_bound} to find the best solution to the problem.
+\end{question}
+
+The search for the best solution may be very long, so it is important to help the system to quickly find a good solution. For this, the predicate \code{search / 6} allows you to control the list in two ways:
+\begin{itemize}
+ \item the order in which the variables are instantiated
+ \item the order in which each value of the domain of a variable is tested
+\end{itemize}
+
+
+\begin{version}\label{v1} (see \code{search/6} in the doc)
+In this version the first variables considered are those involved in the more constraints (we try to fail as soon as possible to avoid developing unnecessary branches
+: « To succeed, try first where you are most likely to fail ! »)
+\emph{and} for a given variable values are tried in ascending order.
+
+\emph{If wait too long before finding an optimal solution, interrupt !}
+\end{version}
+
+
+\begin{version}\label{v2} (see \code{search/6} and \code{get\_domain\_as\_list} dans la doc)
+In this version the variables are considered in the order of the list, \emph{and} for a given variable values are tested in a sequence suitable to the problem addressed. (In the order of values depends on the order of development of branches when seeking an optimal solution is often an advantage in quickly finding a "good" solution because it will allow a more efficient pruning The order of values depends on. the linear form to be optimized.)
+
+\emph{If wait too long before finding an optimal solution, interrupt !}
+\end{version}
+
+\begin{version}
+Combine versions \ref{v1} and \ref{v2}.
+\end{version}
+
+\begin{version}
+Heuristic of choosing the order of the variables calculate a score for each variable according to a specific criterion (see doc \code{search}).
+When all variables have the same score, the order in the initial list is used.
+Thus, the initial order of the variables can be very important even when using search heuristics.
+
+
+Submit an initial variable order adapted to the problem and verify the impact of this order on the time to search for the optimal solution.
+\end{version}
+
+Note: To reduce the field at the earliest places of Tom and Lou it is possible to state redundant constraints.
+
+\section{Compte-rendu}
+
+\subsection{Questions de compréhension}
+
+\begin{enumerate}
+
+\item At the end of the year you have been asked to write your own labeling process. What does the original labeling of \eclipse{} and why is it not effective for the problem addressed ~?
+
+\end{enumerate}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item The answer to the question of understanding.
+\item The code \eclipse{}. Give queries \ eclipse {} and the system responses.
+\item The answer to the question \ref{Qsym}.
+\item A justification of the choices you have made for versions 2 and 4 of the enumeration strategies.
+\end{enumerate}
+

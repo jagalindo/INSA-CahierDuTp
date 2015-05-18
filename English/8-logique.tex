@@ -1,0 +1,96 @@
+% éèàùôê
+
+\chapter{Histoire de menteurs}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                    TP 4                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\setlength{\parskip}{2ex}
+\setlength{\parindent}{0pt}
+
+\section{Le puzzle}
+\label{sec:mensonge}
+
+Parent1 et Parent2 forment un couple hétérosexuel, mais on ne sait pas qui est la femme ni
+qui est l'homme ! Ces deux personnes ont un enfant Enfant dont on ne connaît pas le
+sexe.
+
+Le seul critère permettant de discerner femmes et hommes est le suivant :
+
+\begin{enumerate}
+\item Les femmes disent toujours la vérité.
+\item Les hommes alternent systématiquement vérité et mensonge.
+\end{enumerate}
+
+(Selon vos convictions, vous pouvez bien sûr adapter l'énoncé \ldots)
+
+On demande à Enfant s'il est un homme ou une femme :
+
+\begin{tabbing}
+  \hspace{2.5em} Enfant affirme : Arrheu, arrheu~!
+\end{tabbing}
+On se tourne alors vers ses parents Parent1 et Parent2.
+\begin{tabbing}
+  \hspace{2.5em}\= Parent1 affirme : Enfant vous dit qu'elle est une femme.\\
+                \> Parent2 affirme : Enfant est un homme puis \dots\\
+                \> Parent2 affirme : Enfant ment.
+\end{tabbing}
+
+On cherche à savoir qui est le père, qui est la mère et quel est le sexe de l'enfant.
+
+
+\section{Modélisation}
+
+Modéliser ce puzzle logique en utilisant les contraintes logiques de la
+bibliothèque \emph{ic}. Pour cela, identifier les variables et leur domaine.
+
+\begin{question}
+« Les femmes disent toujours la vérité. ». \\
+Définir le prédicat \code{affirme/2} tel que \code{affirme(?S,?A)} pose
+la contrainte : l'affirmation \code{A} est vraie si \code{S} est une
+femme.
+\end{question}
+
+\begin{question}
+« Les hommes alternent systématiquement vérité et mensonge. » \\
+Définir le prédicat \code{affirme/3} tel que \code{affirme(?S,?A1,?A2)}
+pose la contrainte~: si \code{S} est un homme, les affirmations $A_1$
+et $A_2$ sont l'une vraie, l'autre fausse.
+\end{question}
+\begin{tabbing}
+  \hspace{2.5em}\= AffE  est l'affirmation de l'enfant.\\
+                \> AffEselonP1 est l'affirmation de l'enfant selon Parent1.\\
+                \> AffP1 est l'affirmation de Parent1.\\
+                \> Aff1P2 est la première affirmation de Parent2.\\ 
+                \> Aff2P2 est la seconde affirmation de Parent2.
+\end{tabbing}
+
+Chacune de ces affirmations appartient au domaine booléen $\{0,1\}$ (représenté par l'intervalle entier [0..1]) :
+\begin{tabbing}
+  \hspace{2.5em}\= AffEselonP1 : \hspace{1em}\= Enfant est une femme\\
+                \> AffP1       :             \> AffEselonP1 = AffE\\
+                \> Aff1P2      :             \> Enfant est un homme\\
+                \> Aff2P2      :             \> AffE = 0
+\end{tabbing}
+
+\begin{question}
+  Définir le domaine symbolique des variables \code{Parent1}, \code{Parent2} et \code{Enfant}, puis écrire le prédicat qui contraint
+  le domaine de l'ensemble des variables.  
+\end{question}
+
+\begin{question} 
+  Poser les contraintes sur les variables et définir un prédicat de labeling pour les valeurs symboliques (comme pour le TP \ref{tp2}). Utilisez ce prédicat pour résoudre le problème.
+\end{question}
+
+% \section{Compte-rendu}
+
+% \subsection{À rendre}
+
+% \begin{enumerate}
+% \item La réponse au problème posé.
+% \item Le code \eclipse{} \emph{commenté}. Donnez les requêtes ainsi que les réponses du système. 
+% \end{enumerate}
+
+

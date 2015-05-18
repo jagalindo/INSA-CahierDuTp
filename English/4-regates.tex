@@ -1,0 +1,207 @@
+% éèàùôê
+
+\chapter{The races}
+
+
+\section{Problem Statement}
+\label{sec:enonce-probleme}
+
+
+The organizers of a regatta can have 3 yachts each to host a number of teammates. The  accommodation capacities for the yachts are:
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+	7&6&5\\
+        \hline
+    \end{tabular}
+\end{center}
+
+
+
+4 teams responded to the invitation of the organizers. The size of these
+invited teams is given by the following table:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+	5&5&2&1\\
+        \hline
+    \end{tabular}
+\end{center}
+
+
+The puzzle of the organizers then is to try to make a schedule
+with the following requirements:
+
+\begin{itemize}
+
+\item The regatta takes place in 3 successive confrontations in which
+       3 sailboats compete;
+
+\item invited teams are spread over the 3 boats so
+       that :
+
+    \begin{enumerate}
+
+    \item members of the same team stay together,
+    \item sailboats of accommodation capacities are met,
+    \item during successive confrontations no team returns two time on the same boat,
+    \item during successive confrontations no team finds
+           with the same partner team.
+    \end{enumerate}
+
+\end{itemize}
+
+\clearpage
+
+The goal is to establish a schedule two entries for any confrontation and
+for any guest team indicates the number of host sailboat. the schedule
+below is a possible answer. It states that during the confrontation 3
+Team No. 4 is on the boat 2; it is then Team Partner
+2.
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \backslashbox{Équipe}{Confrontation} &
+         1 &  2 &  3 \\ \hline
+         1 &  1 &  2 &  3  \\ \hline
+         2 &  3 &  1 &  2  \\ \hline
+         3 &  2 &  3 &  1  \\ \hline
+         4 &  1 &  3 &  2  \\ \hline
+       \end{tabular}
+\end{center}
+
+
+\section{Looking for a solution using ECLiPSe}
+\label{sec:vers-une-solutionRegates}
+
+\subsection{A first partial solution}
+The problem data are in the form of two vectors: the
+vector of terminal facilities and the vector of the sizes of invited teams.
+The variables of the problem are the number of \code{NbEquipes * NbConfrontations}. These variables,
+representing a host sailboat, have a field \verb|1..NbBateaux|. In the following, the variables are contained in an array with \code{NbEquipes} rows and \code{NbConfrontations} columns.
+
+\begin{question}
+ Define the predicate \\\code{getData(?TailleEquipes, ?NbEquipes, ?CapaBateaux, ?NbBateaux, ?NbConf)} \\ that unifies the variables as parameters with the data of problems.
+\end{question}
+
+
+\begin{question}
+Define the predicate \code{defineVars(?T, +NbEquipes, +NbConf, +NbBateaux)} which unifies \code{T} the array of variables described above and forced the field variables.
+\end{question}
+
+\begin{question}
+  Define the predicate \code{getVarList(+T,?L)} which constructs the
+  list \code{L} with the variables in the table\code{T}. The variable list must contain the variables of the first column followed by those in the second column, etc. (a test that shows that the order is correct).
+  \end{question}
+
+\begin{question}
+ Define the predicate  \code{solve(?T)} qui résoud le problème des régates où seules les contraintes de domaines sont posées. 
+Vérifiez que les réponses rendues par eclipse vous semblent correctes. 
+\end{question}
+
+\subsection{Prise en compte des contraintes du problème}
+
+\begin{question}
+ Define the predicate\code{pasMemeBateaux(+T, +NbEquipes, +NbConf)}which requires that the same team will not return twice on the same boat.
+Modify the predicate \code{solve} to take into account this new constraint and check that the answers given by eclipse are consistent.\end{question}
+
+\begin{question}
+ Define the predicate\code{pasMemePartenaires(+T, +NbEquipes, +NbConf)} which requires that the same team is not found twice with the same team.
+Modify the predicate \code{solve} to take into account this new constraint and check that the answers given by eclipse are consistent.
+\end{question}
+
+\begin{question}
+ Define the predicate \\ \code{capaBateaux(+T, +TailleEquipes, +NbEquipes, +CapaBateaux, +NbBateaux, +NbConf)} which verifies that the capacity of ships are met at every confrontation.
+Modify the predicate \code{solve} to take into account this new constraint and check that the answers given by eclipse are consistent.\end{question}
+
+\section{Passage à un problème de taille réelle}
+
+The data used so far are only test data; it would be quite possible to solve the problem without using a computer.
+In this section, we consider data more representative of the puzzle that can be organizing a regatta:
+
+We have 13 sailboats whose capacities are listed below:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        10&10&9&8&8&8&8&8&8&7&6&4&4\\
+        \hline
+    \end{tabular}
+\end{center}
+  
+The number of teams going to 29. The size of each team:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        7 & 6 & 5 & 5 & 5 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 3 & 3\\
+        \hline
+        \multicolumn{15}{c}{}\\
+        \cline{1-14}
+        2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & \multicolumn{1}{c}{}\\
+        \cline{1-14}
+    \end{tabular}
+\end{center}
+
+The regatta takes place in 7 confrontations. First try with
+less confrontation and gradually try to 7
+confrontations.
+
+
+Finding a solution to this new problem can be very long! he
+you should program your own labeling. Idea to dig:
+when you have the list of 29 variables of a confrontation without
+doubt it is preferable to get faster a first solution,
+reorder the list so as to alternate small and large team.
+
+\begin{question}
+ Implement \code{getVarListAlt(+T,?L)} to solve this problem in a reasonable time.
+ \end{question}
+
+The following configuration is a solution of the problem:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|}
+        \hline
+        \backslashbox{Équipe}{Confrontation} &
+         1 &  2 &  3 &  4 &  5 &  6 &  7 \\ \hline
+         1 &  1 &  2 &  3 &  4 &  5 &  6 &  7 \\ \hline
+         2 &  2 &  1 &  4 &  3 &  6 &  5 &  8 \\ \hline
+         3 &  3 &  4 &  1 &  2 &  8 &  7 &  9 \\ \hline
+         4 &  4 &  3 &  5 &  1 &  2 &  9 & 10 \\ \hline
+         5 &  5 &  6 &  2 &  7 &  1 &  3 &  4 \\ \hline
+         6 &  6 &  5 &  7 &  2 &  1 &  4 &  3 \\ \hline
+         7 &  6 &  7 &  8 &  5 &  2 &  1 & 11 \\ \hline
+         8 &  7 &  5 &  6 &  8 &  9 &  1 &  2 \\ \hline
+         9 &  8 &  9 &  7 & 10 &  4 & 11 &  5 \\ \hline
+        10 &  8 & 10 &  9 &  6 & 11 &  3 &  2 \\ \hline
+        11 &  9 &  8 & 12 & 13 &  7 &  2 &  6 \\ \hline
+        12 & 10 &  9 &  8 & 11 & 13 & 12 &  1 \\ \hline
+        13 & 12 & 13 & 11 &  9 & 10 &  8 &  1 \\ \hline
+        14 & 11 & 10 & 13 &  3 &  8 &  9 &  4 \\ \hline
+        15 & 11 & 12 & 10 &  7 &  3 & 13 &  9 \\ \hline
+        16 & 13 & 11 & 10 &  9 &  6 &  1 &  5 \\ \hline
+        17 & 13 &  8 & 11 & 12 &  4 & 10 &  3 \\ \hline
+        18 & 10 & 11 &  9 &  8 & 12 &  2 &  3 \\ \hline
+        19 &  9 & 11 &  6 & 12 & 10 &  5 & 13 \\ \hline
+        20 &  9 &  7 & 10 & 11 & 12 &  8 &  2 \\ \hline
+        21 &  7 &  8 &  9 & 10 &  3 &  4 &  1 \\ \hline
+        22 &  7 &  6 &  5 &  9 & 11 &  2 &  8 \\ \hline
+        23 &  5 &  7 &  1 &  8 &  3 & 10 & 13 \\ \hline
+        24 &  4 &  1 &  6 &  5 &  3 &  2 & 12 \\ \hline
+        25 &  3 &  2 &  4 &  1 &  7 & 11 & 12 \\ \hline
+        26 &  3 &  1 &  2 &  6 &  9 & 10 & 11 \\ \hline
+        27 &  2 &  4 &  3 &  1 &  9 &  8 &  6 \\ \hline
+        28 &  2 &  3 &  1 &  6 &  7 &  4 &  5 \\ \hline
+        29 &  1 &  3 &  2 &  5 &  4 &  7 &  6 \\ \hline
+    \end{tabular}
+\end{center}
+\section{Compte-rendu}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item The answer to the problem.
+\item The code \eclipse{} \emph{with comments}. Give eclipse requests
+   and the system responses.
+   \end{enumerate}
+

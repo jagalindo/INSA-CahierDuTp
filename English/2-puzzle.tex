@@ -1,0 +1,141 @@
+% éèàùôê
+
+\chapter{Contraintes logiques} \label{tp2}
+In a general way, a constraint is expresed by an elementary operator such as X \#> Y. This is a contraint is composed of multiple primitices linked with logic connectors:~\code{and},
+\code{or}, \code{=>}, \code{\#=} et \code{neg}. We also call them logic constrints.
+
+We call symbolic constraints those refering to variables within an integer domain.In that case, the domain is defined by multiple terms such as ~:
+\verb|Day &:: week|, with \verb|week| the symbolic domain represent the set of \verb|{mo, tu, we, th, fr, sa, su}|.
+
+\section{Logic puzzle}
+
+To solve this puzzle you need two libraries.
+
+\begin{itemize}
+ \item the library \emph{ic\_symbolic} for symbolic constraints (which operators start with
+\code{\&})
+\item lthe library \emph{ic} for logical connectors and constraints on integer variables (whose operators begin with \code{\#})
+\end{itemize}
+A predicate \code{alldifferent(+List)} exists in both
+libraries and implements global constraint which forces
+variables in the list \code{List} to have a different value in
+the same field. The list must contain only variables
+same field.
+
+NB: When a predicate with the same name and is in the same arity
+two libraries, use the syntax \verb|bibliothèque:prédicat|
+to specify which one to use.
+
+
+\subsection{Enoncé}
+
+A street nearby houses contains 5 different colors. the
+residents of each house are of different nationalities,
+possess different animals, different cars and all
+a different favorite drink. In addition, the houses are numbered
+January to May in the order they are in the street.
+
+\newpage
+
+We know more about these houses:
+
+\begin{tabular}{c@{ }l}
+(a) & The Englishman lives in the red house \\
+(b) & The Spaniard owns a dog \\
+(c) & The person living in the green house drinks coffee \\
+(d) & The Ukrainian drinks tea \\
+(e) & The green house is located just to the right of the white house \\
+(f) & BMW's driver has snakes \\
+(g) & The inhabitant of the house has a yellow Toyota \\
+(h) & Milk is drunk in the middle house \\
+(i) & The Norwegian lives in the leftmost house \\
+(j) & The driver of the Ford lives next to the person who owns a fox \\
+(k) & The person driving a Toyota lives next to the house where there is a horse\\
+(l) & Honda driver drinking orange juice \\
+(m) & The Japanese drove a Datsun \\
+(n) & The Norwegian lives next to the blue house
+\end{tabular}
+\paragraph{}
+We want to know who owns a zebra and who drinks water.
+
+\subsection{Modélisation}
+
+A house is represented by a term
+\\\code{m(Pays,Couleur,Boisson,Voiture,Animal,Numero)} or
+\code{Pays}, \code{Couleur}, \code{Boisson}, \code{Voiture},
+\code{Animal} and \code{Numero} are six variables representing the houses characteristics. The variables of the problem are
+represented by a five-member list where each element is a
+term \code{m(...)}. The first element of the list is the
+home leftmost and is number 1, the second element
+is the second house from the left and carries the
+number 2, etc.
+
+\subsection{Questions}
+
+\begin{question} 
+  Define the different symbolic domains through
+   libraries from \eclipse{} (cf. documentation of \emph{ic\_symbolic}).
+\end{question}
+
+\begin{question}
+ Define a predicate \code{domaines\_maison(m(...))} which forced the
+   field of variables that make up a home.
+\end{question}
+
+\begin{question}
+\label{numerotation}
+Define the predicate \code {rue(?Street)} that unifies \code{Rue} to the
+   list of houses and pose constraints
+   field. NB: this predicate must set the value of variables \code{Numero} of each home.
+\end{question}
+
+\begin{question}
+Write the predicate \code{ecrit\_maisons(?Rue)} defines
+   iterator that retrieves each element of \code{Rue} and writes
+   means of the predicate \code{writeln/1}. You will need this type
+   iterator in the following questions.
+\end{question}
+
+\begin{question}
+ Define the predicate \code{getVarList(?Rue, ?Liste)} allowing
+   retrieve the list of variables of the problem.
+
+ Then set a predicate labeling
+  \code{labeling\_symbolic(+Liste)} using the predicate
+  \code{indomain/1} de \emph{ic\_symbolic} (cf. page
+  \pageref{intro:labeling}).
+\end{question}
+
+\begin{question}
+ Define the predicate\code{resoudre(?Rue)} using predicates
+   previous to find a solution within the constraints of
+   field. Check that the solutions given by \eclipse{} are
+   consistent.
+\end{question}
+
+\begin{question}
+  Ask the constraints corresponding to the information of (a) to (n)
+   adding to as the predicate \code{resoudre} and 
+   verify that the proposed solutions are correct.
+\end{question}
+
+\begin{question}\label{Puzzle_last}
+Answer the question posed in the statement ~: has a zebra and
+   drinking water ~?
+\end{question}
+
+\section{Compte-rendu}
+
+\subsection{Questions de compréhension}
+
+\begin{enumerate}
+\item In the question ~\ref{numerotation}, you set the value of variables representing the number of a house on the street. Would it have been possible not to set these values? What would have been the impact on the search for solutions?
+\end{enumerate}
+
+\subsection{À rendre}
+
+\begin{enumerate}
+\item The code \eclipse{} \emph{commented}.  Give queries
+   \eclipse{} and the responses of the system and the test data when the data are not the problem.
+\item the answer to the question \ref{Puzzle_last}.
+\end{enumerate}

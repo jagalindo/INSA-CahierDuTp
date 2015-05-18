@@ -1,0 +1,140 @@
+\documentclass[12pt]{report}
+% éèàçù (pour que le 'charset' soit détecté automatiquement par l'éditeur de texte)
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage[frenchb]{babel}
+%\usepackage[dvips]{graphicx}
+\usepackage{graphicx}
+\usepackage{tocloft} % personalisation de la table des matières (pour avoir "TP #" sans problème d'espacement)
+\usepackage{bbm} %pour avoir Q
+\usepackage{slashbox}
+\usepackage{lmodern} % amélioration des polices ?
+
+
+\usepackage{fullpage} % pour avoir des pages pleines
+
+\newtheorem{iter}{}
+\newtheorem{version}{Version}
+\newtheorem{question}{Question}[chapter]
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\dom}{\string:\string:}
+\newcommand{\exo}[1]{\textit{#1}}
+\newcommand{\eclipse}{ECLiPSe}
+\newcommand{\prolog}{Prolog}
+
+\graphicspath{{figures/}} % dossier où trouver les fichiers de \includegraphics
+
+
+\title{
+\begin{flushleft}
+{\includegraphics[width=4cm]{insa.pdf}}
+\vspace{-2cm}
+\end{flushleft}
+\begin{flushright}
+\normalsize
+Année universitaire 2014--2015
+\end{flushright}
+\vspace{10ex}
+\rule{12cm}{1mm}
+\huge{Programmation par Contraintes}\\
+\vspace{5ex}
+\Large{Cahier de TP}\\
+\vspace{5ex}
+\large{\it Mireille Ducassé : mireille.ducasse@insa-rennes.fr\\
+%Haykel Boukadida : haykel.boukadida@yahoo.fr\\
+%Aymeric Hervieu : aymeric.hervieu@irisa.fr
+José Ángel Galindo Duarte : jagalindo@us.es\\
+Pascal Garcia : Pascal.Garcia@insa-rennes.fr
+}\\
+\rule{12cm}{1mm}
+\vspace{15ex}
+\begin{flushleft}
+\begin{tabular}{l}
+\textit{4\up{ème} année}\\
+\textit{Département Informatique}\\
+\textit{INSA de Rennes}
+\end{tabular}
+\end{flushleft}
+}
+\author{}
+\date{}
+
+\setcounter{tocdepth}{0}
+
+\begin{document}
+
+\pagestyle{empty}
+\maketitle
+%\newpage
+\pagestyle{plain}
+\renewcommand{\chaptername}{TP} % On met l'intitulé 'nom de chapitre' à TP 
+\renewcommand{\thechapter}{\arabic{chapter}}
+%\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+{
+\setlength{\baselineskip}{1.8\baselineskip} % On change temporairement l'interligne pour la table des matières
+%\cftsetindents{chapter}{0pt}{1.3cm} 
+%\renewcommand{\contentsname}{\pagebreak\centerline{Sommaire}} % Comme
+%il est au début c'est un Sommaire.
+\renewcommand{\contentsname}{\centerline{Sommaire}} % Comme il est au début c'est un Sommaire.
+\tableofcontents
+}
+
+\cleardoublepage
+\chapter*{Avant-propos}
+
+Ce cahier de travaux pratiques présente différents problèmes concrets
+de recherche combinatoire et d'optimisation. Le but de ces TP est de
+vous entraîner à modéliser ces problèmes en utilisant la programmation
+par contraintes. Un point fort de la programmation par contraintes est
+que la résolution d'un problème est indépendante de sa modélisation et
+que, par conséquent, on peut utiliser ce type de programmation sans
+connaître les algorithmes de résolution sous-jacents (propagation,
+branch and bound, \ldots). Cependant, vous vous rendrez rapidement
+compte qu'une compréhension de ces algorithmes est nécessaire pour
+comprendre ce qui se passe et, plus concrètement, déboguer vos
+programmes.
+
+
+
+\section*{Remerciements}
+
+Ce cahier de TP a été initialement conçu par Edouard Monnier avec
+l'aide de Christiane Hespel. Il a été ensuite régulièrement remanié
+par les intervenants successifs, en particulier, Matthieu Carlier,
+Florence Charreteur, Tristan Denmat, Coralie Haese, Vincent Montfort,
+Harold Mouchère, Matthieu Petit et Benoit Ronflette.
+
+\include{0-introduction}
+\include{00-methodologie}
+\include{1-decouverte}
+
+\include{2-puzzle}
+
+\include{3-ordonnancement}
+
+\include{4-regates}
+
+\include{5-contraindre_chercher_immoral}
+
+\include{6-contraindre_chercher_balancoire}
+
+\include{7-choco}
+
+\include{8-logique}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   Annexes                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\include{10-intro-choco}
+
+\end{document}
