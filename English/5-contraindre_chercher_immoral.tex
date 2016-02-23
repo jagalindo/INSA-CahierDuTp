@@ -1,4 +1,4 @@
-\chapter{Contraindre puis chercher}
+\chapter{Constraining thus researching}
 
 \noindent Generally the constraints programs include
 two stages, the first is to express the problem and the second
@@ -9,7 +9,7 @@ optimal (or `good 'according to a given criterion). In this problem we
 intéresserons the latter type of solution.
 
 %\section{Totalement immoral !}
-\section{Le problème}
+\section{The problem}
 \label{sec:immoral}
 
 Consider the following problem: a production unit can produce
@@ -36,7 +36,7 @@ It has the following data:
 We want to know what you have to start manufacturing for the benefit.
 
 \newpage
-\section{Modéliser et contraindre}
+\section{Model and constrain}
 
 Before coding it is imperative model, that is to say to
 the problem equations. To this we must look for a model
@@ -49,12 +49,12 @@ either 1 or 0, depending on whether or not the lance production.
 \noindent The program must be composed as follows:
 
 \begin{enumerate}
-\item part données (faits, variables);
-\item part « prédicats de services » (produit scalaire, \dots);
+\item part data (facts, variables);
+\item part « services predicates (scalar product, \dots);
 \item part constraints predicates (equations expressing the problem of properties);
 \item part resolution constraints, a predicate that:
     \begin{itemize}
-    \item « récupère » data and variables of the problem,
+    \item « recovery » data and variables of the problem,
     \item asks the constraints on these variables.
     \end{itemize}
 \end{enumerate}
@@ -83,9 +83,9 @@ These equations represent predicates using vector operations.
 \end{question}
 
 
-\section{Optimiser}
+\section{Optimizing}
 
-\subsection{Branch and bound dans ECLiPSe}
+\subsection{Branch and bound within ECLiPSe}
 To make the optimization under the constraints, the algorithm \emph{branch and bound} is used. 
 \newpage
 In \eclipse{}, the predicate \code{minimize/2} from the library
@@ -114,7 +114,7 @@ optimum found. The following example illustrates this property:
    the purpose?
 \end{question}
 
-\subsection{Application à notre problème}
+\subsection{Application to our problem}
 
 \begin{question}
 Call the predicate poses constraints and seek
@@ -133,9 +133,9 @@ Use the previous approach to address this new problem. There
 not much to do (same data, same services predicates, \dots) !
 \end{question}
 
-\section{Compte-rendu}
+\section{Homework}
 
-\subsection{À rendre}
+\subsection{To do}
 
 \begin{enumerate}
 \item The answer to the problem.

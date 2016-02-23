@@ -1,135 +1,89 @@
-\addcontentsline{toc}{chapter}{Déroulement des travaux pratiques}
-\chapter*{Déroulement des travaux pratiques}
+\addcontentsline{toc}{chapter}{Practical work}
+\chapter*{Conducting our practical work}
 
-\section*{Compte-rendus}
-Les travaux pratiques se feront par binômes et chaque TP devra faire
-l'objet d'un compte-rendu qui sera noté.  {\bf Ces compte-rendus
-  devront être rendus au plus tard lors du TP suivant, en version
-  papier et déposés sur Moodle.}
+\section*{Homework}
+The practical work will be done in pairs and each TP will be a report that will be scored. {\bf These reports should be delivered at worst before the next TP, printed  and uploaded to Moodle.}
 % pour 2013 il faudra donner les indications précises.
 
-Les compte-rendus  inclueront au minimum~:
+At least they should include:
 \begin{enumerate}
-\item Le code final de votre solution. Remarque : les notes prendront
-  en compte la qualité du code produit et des commentaires.
- \item {\bf Les tests} vous ayant permis de
-   valider votre code. Chaque test sera décrit par~:
+\item The final code for your solution. Note: The scores will take into account the quality of the product code and comments.
+ \item {\bf The tests} you have validated your code. Each test will be described by:~:
 \begin{itemize}
-\item Les données utilisées (si ce ne sont pas celles du texte du TP)
-\item Le but executé
-\item Les premières réponses d'\eclipse
-\item Le temps d'exécution de la requête
-\item Une indication du nombre de réponses
+\item The data used (if these are not those of the text TP)
+\item The aim executed
+\item The first responses of \eclipse
+\item The time to execute it
+\item Some indications about the number of solutions
 \end{itemize}
 
-\item Une réponse succincte mais \textbf{rédigée} à toutes les
-  questions de compréhension. N'hésitez pas à utiliser des schémas ou
-  des exemples
-  lorsque cela est pertinent.\\
+\item A short response but applicable to all comprehension questions. Do not hesitate of using the schemas from the examples when you consider its pertinent.\\
 
-Les deux derniers points devront être inclus dans un grand
-commentaire. Le fichier déposé sur Moodle doit pouvoir être exécuté
-directement par le correcteur.
+The last two points will be included in a general comment. The dropped file Moodle should be executable by the professor.
 \end{enumerate}
  
 \section*{Structure de vos programmes}
-Le code de vos TP devra respecter la structure suivante~:
+The code for your TP will have the following structure ~:
 \begin{itemize}
- \item prédicat principal chargé de résoudre le problème posé (ce prédicat sera enrichi tout au long du TP).
- \item prédicats chargés de poser les données
- \item prédicats de définition des variables et de leurs domaines
- \item prédicats posant les contraintes 
- \item prédicats utilitaires
+ \item main predicate responsible for solving the problem posed (this predicate will be enriched through the TP).
+ \item predicates in charge of posing the data
+ \item predicates definition of variables and their areas
+ \item predicates posing constraints
+ \item utilities predicates
 \end{itemize}
 
-\section*{Qualité du code et conventions de codage}
-Vous devrez porter attention à la qualité du code, et plus particulièrement~:
+\section*{Code quality and coding conventions}
+You must pay attention to code quality, especially~:
 \begin{itemize}
- \item Utiliser des noms de prédicats et de variables significatifs (pas de p(X,Y), \ldots)
- \item \textbf{Indenter le code} 
- \item Ne lister \textbf{qu'un seul prédicat par ligne,} même, et surtout, si
-   le prédicat est court.  Ça peut sembler un gâchis de place, mais ça
-   vous fera beaucoup de temps lors de la mise au point. Ça permettra
-   aussi aux enseignants de vous aider plus facilement.
- \item Ne pas entrelarder son code de commentaires~: \textbf{regrouper tous les
-   commentaires en entête d'un prédicat.} Un commentaire à
-   l'intérieur d'un prédicat est souvent le signe qu'il faudrait
-   découper en prédicats auxilliaire dont le nom pourrait véhiculer
-   l'essentiel de ce qu'on voulait mettre dans le commentaire.
- \item Ne pas mettre de constantes en dur dans le programme
- \item Faire du code modulaire (pas de prédicats fourre-tout)
- \item Faire du code réutilisable lorsque cela est pertinent
+ \item Use meaningful variable names, not p(X,Y), \ldots)
+ \item \textbf{Indent the code} 
+ \item Do not list  \textbf{just a single predicate by line,} even, and especially, if the predicate is short. It may seem a waste of space, but it will make you a lot of time during the development. It also will allow teachers to help you more easily.
+ \item Do not interlard its code comments
+ ~: \textbf{group all
+    comments header in a predicate.} Comment within a predicate is often a sign that we should cut in auxiliary predicates whose name could convey the essence of what we wanted to in the commentary.
+ \item Do not add hard constraints to the problem
+ \item Try to modularize the code. (Do not copy-paste!)
+ \item Write reusable code when relevant
 \end{itemize}
 
 
-\section*{Méthodologie}
-Le débogage de programmes à contraintes n'est pas évident. Aussi, il
-est très important de \textbf{tester vos programmes au fur et à
-  mesure}.  Le processus de résolution d'un problème devra donc être
-incrémental :
+\section*{Methodology}
+The constraints to debug programs is not clear. Also, it is very important to test your programs as you. The process of solving a problem will be incremental:
 \begin{enumerate}
- \item Définition des données pour la mise au point (éventuellement
-   plus restreintes que les données du problème qu'on cherche
-   réellement à résoudre)
- \item Définition des variables et de leur domaine
- \item Obtention d'une solution et vérification de la cohérence de
-   cette solution avec les contraintes déjà posées
- \item Ajout d'une contrainte 
- \item Obtention d'une solution et vérification
- \item Itérer sur les deux points précédents tant qu'il y a des
-   contraintes à poser
- \item \label{une:sol} Obtention d'une solution prenant en compte toutes les
-   contraintes
-\item Itérer avec les données de l'énoncé, si les données initiales
-  avaient été restreintes.\\
+ \item Definition of data for the development (possibly smaller than the data of the problem that really seeks to solve).
+ \item Definition of variables and their field
+ \item Obtaining a solution and checking the consistency of this solution with the constraints already placed
+ \item Adding a constraint
+ \item Obtaining a solution and verification
+ \item Iterate over the two previous points as long as there are constraints to pose
+ \item \label{une:sol} Obtaining a solution taking into account all the constraints
+\item Iterate with the data of the statement, if the original data had been limited.\\
 \end{enumerate}
 
-Il faudra systématiquement commencer avec des données de test les plus
-petites possibles et ne passer aux valeurs conséquentes qu'une fois
-que le point~\ref{une:sol} est atteint.
+It will always start with the smallest possible test data and move on to substantial values that once the point ~\ref{une:sol} is reached.
 
 \section*{Documentation}
-La documentation d'\eclipse{} est disponible en local
-\url{/usr/local/stow/eclipse6.0\_136/doc/bips}. C'est cette
-documentation qu'il faut utiliser en priorité. Pour le cas où des
-informations viendraient à manquer, vous pouvez aussi consulter la
-documentation en ligne à l'url~: \url{http://eclipseclp.org/doc/bips}.\\
+The \eclipse{} documentation is available locally under
+\url{/usr/local/stow/eclipse6.0\_136/doc/bips}.This is the documentation that must be considered first. In case the information would come to miss, see also the online documentation to the url~: \url{http://eclipseclp.org/doc/bips}.\\
 
-{\bf Ajoutez des signets lors du premier TP sur ces pages et ayez
-systématiquement le manuel de référence ouvert lors des TP (cf annexe
-du cours).}
+{\bf Add Bookmarks during the first TP on my pages and always have an open reference manual at TP (see appendix of the course).}
 
 
-\section*{Mise au point}
+\section*{Tuning}
 
-Pour finir, voici quelques points qui peuvent vous aider à trouver des
-erreurs dans vos programmes~:
+Finally, here are some points that can help you find errors in your programs~:
 
 \begin{itemize}
-\item {\bf Faîtes systèmatiquement disparaître les warnings du
-    compilateur}. En effet, la plupart du temps les avertissements
-  remontés par le compilateur sont des symptômes d'erreurs.\\  
+\item {\bf Make prompted systematically remove compiler warnings}. Indeed, most of the time warnings reassembled by the compiler are error symptoms.\\  
 
 %   De plus, il ne faut pas prendre l'habitude d'avoir de nombreux
 %   avertissements (ex : variables ``singleton'') car cela vous
 %   empêche de voir lorsque le compilateur remonte un problème grave.\\
 
-\item {\bf Méfiez vous des ``delayed goals''}. Il est tout à fait
-  normal d'avoir des buts suspendus tant que vous ne faîtes que poser
-  les contraintes.  En revanche, lorsqu'\eclipse{} dit avoir trouvé
-  une solution à ces contraintes, s'il reste des buts en attente, il
-  est probable que toutes les contraintes n'aient pas été prises en
-  compte. On ne peut donc pas faire confiance au résultat, tout
-  particulièrement s'il y a eu du ``Branch and Bound''.\\
+\item {\bf beware of ``delayed goals''}. It is quite normal to have goals suspended until you are doing that pose constraints. However, when \eclipse{} said to have found a solution to these constraints, if there are goals on hold, it is likely that all constraints were not taken into account. We can not trust the result, especially if there was the `` Branch and Bound''.\\
 
-\item {\bf Utilisez le traceur}. Cela permet de voir exactement ce qui
-  se passe à l'exécution.
+\item {\bf Use the debugger}. This allows you to see exactly what happens at runtime.
 
-  L'annexe du cours contient des indications concrètes pour utiliser
-  le traceur d'ECLiPSe. Cela peut s'avérer très utile pour comprendre,
-  par exemple, les erreurs d'exécution ou les itérateurs mal
-  imbriqués.  Il est crucial de tracer des exécutions où les données
-  de test ont été réduites le plus possible pour réduire la taille de
-  la trace.
+ The course schedule includes concrete indications for the use of tracer ECLiPSe. This can be very useful to understand, for example, runtime errors or poorly nested iterators. It is crucial to trace executions where the test data have been reduced as much as possible to reduce the size of the trace.
 
 \end{itemize}

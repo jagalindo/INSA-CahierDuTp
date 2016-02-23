@@ -36,10 +36,10 @@ with the following requirements:
 \begin{itemize}
 
 \item The regatta takes place in 3 successive confrontations in which
-       3 sailboats compete;
+       3 sailboats compete;
 
 \item invited teams are spread over the 3 boats so
-       that :
+       that :
 
     \begin{enumerate}
 
@@ -47,7 +47,7 @@ with the following requirements:
     \item sailboats of accommodation capacities are met,
     \item during successive confrontations no team returns two time on the same boat,
     \item during successive confrontations no team finds
-           with the same partner team.
+           with the same partner team.
     \end{enumerate}
 
 \end{itemize}
@@ -101,7 +101,7 @@ Define the predicate \code{defineVars(?T, +NbEquipes, +NbConf, +NbBateaux)} whic
 Vérifiez que les réponses rendues par eclipse vous semblent correctes. 
 \end{question}
 
-\subsection{Prise en compte des contraintes du problème}
+\subsection{Taking into account problem constraints}
 
 \begin{question}
  Define the predicate\code{pasMemeBateaux(+T, +NbEquipes, +NbConf)}which requires that the same team will not return twice on the same boat.
@@ -116,7 +116,7 @@ Modify the predicate \code{solve} to take into account this new constraint and c
  Define the predicate \\ \code{capaBateaux(+T, +TailleEquipes, +NbEquipes, +CapaBateaux, +NbBateaux, +NbConf)} which verifies that the capacity of ships are met at every confrontation.
 Modify the predicate \code{solve} to take into account this new constraint and check that the answers given by eclipse are consistent.\end{question}
 
-\section{Passage à un problème de taille réelle}
+\section{let's go ahead with a real-world size problem}
 
 The data used so far are only test data; it would be quite possible to solve the problem without using a computer.
 In this section, we consider data more representative of the puzzle that can be organizing a regatta:
@@ -195,13 +195,13 @@ The following configuration is a solution of the problem:
         29 &  1 &  3 &  2 &  5 &  4 &  7 &  6 \\ \hline
     \end{tabular}
 \end{center}
-\section{Compte-rendu}
+\section{homework}
 
-\subsection{À rendre}
+\subsection{To deliver}
 
 \begin{enumerate}
 \item The answer to the problem.
 \item The code \eclipse{} \emph{with comments}. Give eclipse requests
-   and the system responses.
-   \end{enumerate}
+   and the system responses.
+   \end{enumerate}
 

@@ -1,5 +1,5 @@
 % éèàùôê
-\chapter{Ordonnancement de tâches sur deux machines}
+\chapter{Task scheduling on two machines}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                    TP 2                                      %
@@ -31,7 +31,7 @@ represents one task. The values linked with the nodes are the task id and its du
 \end{figure}
 
 This is to find start times for each task, in accordance with these constraints.
-\section{Modélisation de la connaissance}
+\section{Modeling knowledge}
 \label{sec:modelisation-connaissance}
 We define a symbolic area for machine consists of two
 values \verb|m1| and \verb|m2| (This allows the use of
@@ -69,18 +69,18 @@ words:
 
 Note that in this problem, the machine that runs each task is known.
 
-\section{Vers une solution en ECLiPSe}
+\section{A first ECLiPSe solution}
 \label{sec:vers-une-solutionOrdo}
 
-\subsection{Une première solution partielle}
+\subsection{A partial solution}
 \begin{question} \label{TP2_Q1}
 Define a predicate \code{taches(?Taches)} that unify \code{Taches} with a task table.
 \end{question}
 
 \begin{question}
   Set the iterator that retrieves each element and
-   the poster. You will need this type of iterator for
-   following questions.
+   the poster. You will need this type of iterator for
+   following questions.
 \end{question}
 
 
@@ -97,7 +97,7 @@ Define a predicate \code{getVarList(+Taches, ?Fin, ?List)} which allows to retri
 Define the predicate \code{solve(?Taches, ?Fin)} which uses the previous three predicates to find a schedule that respects the constraints of areas. Check that the solutions given by \eclipse{} are coherent.   
 \end{question}
 
-\subsection{Pose des contraintes d'ordonnancement}
+\subsection{Posing scheduling constraints}
 
 NB: For the following two questions, test your
 response using simple data.
@@ -112,7 +112,7 @@ Define a predicate\code{conflits(+Taches)} qui impose que, sur une machine, deux
 pas en même temps. Modifiez \code{solve} pour obtenir une solution du problème prenant en compte cette dernière contrainte.
 \end{question}
 
-\subsection{La meilleure solution ?}
+\subsection{The best solution ?}
 
 In this problem, there is a notion of relative quality of
 solutions: if a solution $S_1$ is such that the value of
@@ -134,7 +134,7 @@ solutions.
 % instanciation de ce principe basée sur la propagation de
 % contraintes. Le premier paramètre est un but. Ce but génère un arbre
 % de recherche. Le deuxième paramètre est une variable à
-% minimiser. \verb|min_max/2| réalise un parcours « intelligent » de
+% minimiser. \verb|min_max/2| réalise un parcours « intelligent » de
 % l'arbre de recherche pour trouver la feuille de l'arbre où la borne
 % inférieure du domaine de la variable à minimiser est la plus petite et
 % retourne cette borne inférieure. Par conséquent, il faut toujours
@@ -157,14 +157,14 @@ solutions.
 % plus tôt) et qui respecte les contraintes.
 % \end{question}
 
-\section{Compte-rendu}
+\section{Homework}
 
-\subsection{À rendre}
+\subsection{To deliver}
 
 \begin{enumerate}
 \item The code \eclipse{} \emph{commenté}. Give eclipse requests
-   used to test each question and test data when the data are not the problem.
-   For each request, also give the system responses.
+   used to test each question and test data when the data are not the problem.
+   For each request, also give the system responses.
 \item The detailed answer to the question~\ref{TP2_last} 
 \end{enumerate}
 
