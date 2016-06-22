@@ -1,0 +1,72 @@
+\select@language {english}
+\contentsline {chapter}{Introduction to ECLiPSe Prolog}{3}{section*.2}
+\contentsline {section}{\numberline {1}The matrices}{3}{section.0.1}
+\contentsline {section}{\numberline {2}The iterators}{5}{section.0.2}
+\contentsline {subsection}{\numberline {2.1}For each element of : {\tt foreach(Elem,List)}}{5}{subsection.0.2.1}
+\contentsline {subsection}{\numberline {2.2}For each integer between : {\tt for(Indice,Min,Max)}}{5}{subsection.0.2.2}
+\contentsline {subsection}{\numberline {2.3}Accumulator : {\tt fromto(Debut,In,Out,Fin)}}{6}{subsection.0.2.3}
+\contentsline {section}{\numberline {3}The finite domains}{7}{section.0.3}
+\contentsline {section}{\numberline {4}Enumeration : \texttt {labeling} and \texttt {search}}{9}{section.0.4}
+\contentsline {subsection}{\numberline {4.1}Labeling}{9}{subsection.0.4.1}
+\contentsline {subsection}{\numberline {4.2}Search}{9}{subsection.0.4.2}
+\contentsline {section}{\numberline {5}Some utilities}{9}{section.0.5}
+\contentsline {subsection}{\numberline {5.1}Previous commands}{9}{subsection.0.5.1}
+\contentsline {subsection}{\numberline {5.2}Exit ECLiPSe}{10}{subsection.0.5.2}
+\contentsline {chapter}{Practical work}{11}{subsection.0.5.2}
+\contentsline {chapter}{\numberline {1}Discovering the library for constraint programing.}{14}{chapter.1}
+\contentsline {section}{\numberline {1}From Prolog{} to Prolog{}+ic}{14}{section.1.1}
+\contentsline {subsection}{\numberline {1.1}Constraints over trees}{14}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.2}Prolog{} do not manage Maths (but it's an awesome calculator)}{14}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.3}The solver \texttt {ic} to the rescue}{15}{subsection.1.1.3}
+\contentsline {section}{\numberline {2}Zoologie}{15}{section.1.2}
+\contentsline {section}{\numberline {3}Le ``OU'' en contraintes}{15}{section.1.3}
+\contentsline {section}{\numberline {4}Compte-rendu de TP}{16}{section.1.4}
+\contentsline {subsection}{\numberline {4.1}\IeC {\`A} rendre}{16}{subsection.1.4.1}
+\contentsline {chapter}{\numberline {2}Contraintes logiques}{17}{chapter.2}
+\contentsline {section}{\numberline {1}Logic puzzle}{17}{section.2.1}
+\contentsline {subsection}{\numberline {1.1}Enonc\IeC {\'e}}{17}{subsection.2.1.1}
+\contentsline {paragraph}{}{18}{section*.13}
+\contentsline {subsection}{\numberline {1.2}Mod\IeC {\'e}lisation}{18}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {1.3}Questions}{18}{subsection.2.1.3}
+\contentsline {section}{\numberline {2}Compte-rendu}{19}{section.2.2}
+\contentsline {subsection}{\numberline {2.1}Questions de compr\IeC {\'e}hension}{19}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2}\IeC {\`A} rendre}{19}{subsection.2.2.2}
+\contentsline {chapter}{\numberline {3}Task scheduling on two machines}{20}{chapter.3}
+\contentsline {section}{\numberline {1}Problem statement}{20}{section.3.1}
+\contentsline {section}{\numberline {2}Modeling knowledge}{21}{section.3.2}
+\contentsline {section}{\numberline {3}A first ECLiPSe solution}{21}{section.3.3}
+\contentsline {subsection}{\numberline {3.1}A partial solution}{21}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.2}Posing scheduling constraints}{22}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3}The best solution ?}{22}{subsection.3.3.3}
+\contentsline {section}{\numberline {4}Homework}{22}{section.3.4}
+\contentsline {subsection}{\numberline {4.1}To deliver}{22}{subsection.3.4.1}
+\contentsline {chapter}{\numberline {4}The races}{23}{chapter.4}
+\contentsline {section}{\numberline {1}Problem Statement}{23}{section.4.1}
+\contentsline {section}{\numberline {2}Looking for a solution using ECLiPSe}{24}{section.4.2}
+\contentsline {subsection}{\numberline {2.1}A first partial solution}{24}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {2.2}Taking into account problem constraints}{24}{subsection.4.2.2}
+\contentsline {section}{\numberline {3}let's go ahead with a real-world size problem}{25}{section.4.3}
+\contentsline {section}{\numberline {4}homework}{26}{section.4.4}
+\contentsline {subsection}{\numberline {4.1}To deliver}{26}{subsection.4.4.1}
+\contentsline {chapter}{\numberline {5}Constraining thus researching}{27}{chapter.5}
+\contentsline {section}{\numberline {1}The problem}{27}{section.5.1}
+\contentsline {section}{\numberline {2}Model and constrain}{28}{section.5.2}
+\contentsline {section}{\numberline {3}Optimizing}{28}{section.5.3}
+\contentsline {subsection}{\numberline {3.1}Branch and bound within ECLiPSe}{28}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {3.2}Application to our problem}{29}{subsection.5.3.2}
+\contentsline {section}{\numberline {4}Homework}{29}{section.5.4}
+\contentsline {subsection}{\numberline {4.1}To do}{29}{subsection.5.4.1}
+\contentsline {chapter}{\numberline {6}Using a swing}{30}{chapter.6}
+\contentsline {section}{\numberline {1}Find a solution to the problem}{31}{section.6.1}
+\contentsline {section}{\numberline {2}Finding the best solution}{31}{section.6.2}
+\contentsline {section}{\numberline {3}Homework}{32}{section.6.3}
+\contentsline {subsection}{\numberline {3.1}Questions of understanding}{32}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {3.2}To deliver}{32}{subsection.6.3.2}
+\contentsline {chapter}{\numberline {7}Les mobiles de Choco}{34}{chapter.7}
+\contentsline {section}{\numberline {1}Des contraintes sans Prolog{}}{34}{section.7.1}
+\contentsline {section}{\numberline {2}Le probl\IeC {\`e}me : \IeC {\'e}quilibrer un mobile}{35}{section.7.2}
+\contentsline {section}{\numberline {3}Les probl\IeC {\`e}mes \IeC {\`a} r\IeC {\'e}soudre}{35}{section.7.3}
+\contentsline {chapter}{\numberline {8}Histoire de menteurs}{36}{chapter.8}
+\contentsline {section}{\numberline {1}Le puzzle}{36}{section.8.1}
+\contentsline {section}{\numberline {2}Mod\IeC {\'e}lisation}{37}{section.8.2}
+\contentsline {chapter}{\numberline {A}Utilisation du solveur Choco}{38}{appendix.A}
